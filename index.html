@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Srujan Sudam</title>
+    <meta
+      name="description"
+      content="Srujan Sudam. AI decision-making, judgment, and value realisation. Notes, frameworks, and work."
+    />
+    <meta name="robots" content="index,follow" />
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #10131a;
+        --text: #e9ecf1;
+        --muted: #a9b2c3;
+        --line: rgba(255, 255, 255, 0.08);
+        --link: #9bd3ff;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        --radius: 18px;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #fbfbfd;
+          --card: #ffffff;
+          --text: #0c111b;
+          --muted: #4a5568;
+          --line: rgba(0, 0, 0, 0.08);
+          --link: #0b63ce;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+        letter-spacing: 0.2px;
+      }
+
+      a {
+        color: var(--link);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 40px 18px 70px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0 28px;
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .name {
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.4px;
+      }
+      .tag {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      nav {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      nav a {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      nav a:hover {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .hero {
+        border: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0)
+        );
+        border-radius: var(--radius);
+        padding: 26px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+      }
+
+      .hero p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        max-width: 70ch;
+      }
+
+      .cta {
+        margin-top: 16px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+        font-size: 13px;
+      }
+      .btn:hover {
+        text-decoration: none;
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .btn.primary {
+        background: rgba(155, 211, 255, 0.12);
+        border-color: rgba(155, 211, 255, 0.3);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .card {
+        grid-column: span 12;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 18px 18px;
+        box-shadow: var(--shadow);
+      }
+
+      @media (min-width: 860px) {
+        .card.span-6 {
+          grid-column: span 6;
+        }
+        .card.span-7 {
+          grid-column: span 7;
+        }
+        .card.span-5 {
+          grid-column: span 5;
+        }
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .list {
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+
+      .list li {
+        padding: 10px 10px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .list li .k {
+        display: block;
+        font-weight: 650;
+        font-size: 13px;
+        margin-bottom: 2px;
+      }
+
+      .list li .v {
+        display: block;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 22px 0;
+      }
+
+      .small {
+        font-size: 13px;
+      }
+
+      footer {
+        margin-top: 26px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      code.inline {
+        padding: 2px 6px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.02);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <div class="name">Srujan Sudam</div>
+          <div class="tag">AI strategy. Judgment. Value realisation.</div>
+        </div>
+
+        <nav>
+          <a href="#work">Work</a>
+          <a href="#frameworks">Frameworks</a>
+          <a href="#writing">Writing</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <h1>
+          We keep automating the tasks<br />
+          while leaving the decision in the dark.
+        </h1>
+
+        <p>
+          I work on AI programs where the goal is not a shiny demo, but a real
+          shift in how choices get made. Fewer “busy improvements”. More judgment
+          you can stand behind.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="#contact">If this resonates, reach out</a>
+          <a class="btn" href="#writing">Read the thinking</a>
+          <a class="btn" href="#frameworks">See a framework</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section id="work" class="card span-6">
+          <h2>What I work on</h2>
+          <ul class="list">
+            <li>
+              <span class="k">Decision clarity</span>
+              <span class="v"
+                >What is the core decision, who owns it, and what “good” looks
+                like when it is messy.</span
+              >
+            </li>
+            <li>
+              <span class="k">Judgment support, not autopilot</span>
+              <span class="v"
+                >Where AI can carry weight, and where it must stop and hand back
+                control.</span
+              >
+            </li>
+            <li>
+              <span class="k">Value realisation after the demo</span>
+              <span class="v"
+                >Operating model, adoption, edge cases, maintenance. The boring
+                parts that decide if it survives.</span
+              >
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small muted">
+            Current role: Engagement Manager, Data and AI (EY-Parthenon Malta).
+            I also build a decision-support tool in public, slowly and
+            honestly.
+          </p>
+        </section>
+
+        <section class="card span-6">
+          <h2>A real-feeling example</h2>
+          <p class="muted small">
+            This is the pattern I see when teams say “we need AI”.
+          </p>
+
+          <ul class="list">
+            <li>
+              <span class="k">Week 1</span>
+              <span class="v"
+                >A backlog is “too large”. A tool is bought to auto-triage and
+                route work.</span
+              >
+            </li>
+            <li>
+              <span class="k">Month 2</span>
+              <span class="v"
+                >The dashboard shows speed. The floor still feels chaotic.
+                Senior people still get dragged into emergencies.</span
+              >
+            </li>
+            <li>
+              <span class="k">Month 6</span>
+              <span class="v"
+                >The model gets blamed. But the real problem was never the
+                routing. It was the fuzzy greenlight decision that no one owned
+                on a bad day.</span
+              >
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small">
+            If your “improvement” lives only on a slide, it is not an
+            improvement. It is a costume.
+          </p>
+        </section>
+
+        <section id="frameworks" class="card span-7">
+          <h2>Framework preview</h2>
+          <p class="muted small">
+            A lightweight way to force clarity before you build anything.
+          </p>
+
+          <ul class="list">
+            <li>
+              <span class="k">1) Name the decision</span>
+              <span class="v"
+                >Not the process. Not the tool. The decision that changes
+                outcomes.</span
+              >
+            </li>
+            <li>
+              <span class="k">2) Define the “challenge line”</span>
+              <span class="v"
+                >When should the case move forward, and when must it be
+                challenged.</span
+              >
+            </li>
+            <li>
+              <span class="k">3) Map accountability</span>
+              <span class="v"
+                >Who is responsible when the machine is wrong, or when the human
+                ignores it.</span
+              >
+            </li>
+            <li>
+              <span class="k">4) Choose the smallest useful automation</span>
+              <span class="v"
+                >Automate the boring parts. Keep the judgment visible.</span
+              >
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small">
+            If you want, I can turn this into a one-page worksheet you can use
+            in stakeholder conversations.
+          </p>
+        </section>
+
+        <section id="writing" class="card span-5">
+          <h2>Writing</h2>
+          <p class="muted small">
+            A few pieces I would send to a friend who asked, “what is actually
+            going wrong here?”
+          </p>
+
+          <ul class="list">
+            <li>
+              <span class="k"
+                ><a href="#" target="_blank" rel="noopener">AI: tasks vs judgment</a></span
+              >
+              <span class="v">The trap: faster work, same outcomes.</span>
+            </li>
+            <li>
+              <span class="k"
+                ><a href="#" target="_blank" rel="noopener">Ownership after the win</a></span
+              >
+              <span class="v">If no one owns the lighthouse, it goes out.</span>
+            </li>
+            <li>
+              <span class="k"
+                ><a href="#" target="_blank" rel="noopener">Choice paralysis</a></span
+              >
+              <span class="v">Waiting for a list is the new quiet failure.</span>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small muted">
+            Replace the <code class="inline">href</code> values with your LinkedIn post links.
+          </p>
+        </section>
+
+        <section id="about" class="card span-6">
+          <h2>About</h2>
+          <p class="small">
+            I like work that forces trade-offs into the open. The kind where
+            people stop hiding behind “best practice” and actually pick a side.
+          </p>
+          <p class="small muted">
+            I have 6+ years across product, analytics, and strategy, and I have
+            worked across Europe, the US, and APAC. Right now I lead engagements
+            in Data and AI, and I care a lot about what happens after the pilot.
+          </p>
+          <p class="small">
+            I am based in Malta. I work with teams who want the benefits without
+            the hallucinated confidence.
+          </p>
+        </section>
+
+        <section id="contact" class="card span-6">
+          <h2>Contact</h2>
+          <p class="small">
+            If something here matches what you are dealing with, email me.
+          </p>
+
+          <p class="small">
+            <a href="mailto:ssrujansudam@gmail.com">ssrujansudam@gmail.com</a>
+            <span class="muted"> ssrujansudam@gmail.com</span>
+          </p>
+
+          <div class="divider"></div>
+
+          <p class="small muted">
+            Optional: add your LinkedIn here too.
+          </p>
+
+          <p class="small">
+            <a href="https://www.linkedin.com/in/srujansudam" target="_blank" rel="noopener"
+              >LinkedIn</a
+            >
+            <span class="muted"> Srujan Sudam</span>
+          </p>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
