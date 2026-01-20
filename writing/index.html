@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Basic meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Writing | Srujan Sudam</title>
+
+    <meta
+      name="description"
+      content="Writing by Srujan Sudam on decision-making, judgment, AI strategy, and value realisation."
+    />
+    <meta name="author" content="Srujan Sudam" />
+    <meta name="robots" content="index,follow" />
+
+    <link rel="canonical" href="https://srujansudam55.github.io/writing/" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <div class="name">Srujan Sudam</div>
+            <div class="tag">AI strategy. Judgment. Value realisation.</div>
+          </div>
+
+          <nav>
+            <a href="/">Home</a>
+            <a href="/work/">Work</a>
+            <a href="/writing/">Writing</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-top">
+          <div class="pill">Writing</div>
+          <div class="pill">Decision-making and judgment</div>
+        </div>
+
+        <h1>Writing</h1>
+
+        <p>
+          Notes on judgment, strategy, and what survives outside the slide deck.
+          Newest first. Click left, read right.
+        </p>
+      </section>
+
+      <div class="grid">
+        <section class="card span-12">
+          <div class="writing-layout">
+            <aside class="writing-sidebar">
+              <div class="writing-sidebar-top">
+                <div class="writing-sidebar-title">Articles</div>
+                <div class="writing-sidebar-sub muted">Newest first</div>
+              </div>
+
+              <nav id="writingList" class="writing-list" aria-label="Writing list">
+                <div class="muted small">Loading articles…</div>
+              </nav>
+
+              <div class="divider"></div>
+
+              <div class="small muted">
+                Prefer LinkedIn?
+                <a href="https://www.linkedin.com/in/srujansudam" target="_blank" rel="noopener">Profile</a>
+              </div>
+
+              <noscript>
+                <div class="divider"></div>
+                <div class="small muted">
+                  JavaScript is required to load articles inline.
+                </div>
+              </noscript>
+            </aside>
+
+            <main class="writing-content" aria-live="polite">
+              <div id="writingBody" class="essay">
+                <p class="muted small">
+                  Select an article from the left.
+                </p>
+              </div>
+            </main>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      const INDEX_URL = "/writing/index.json";
+      const ARTICLE_BASE = "/writing/articles/";
+
+      const listEl = document.getElementById("writingList");
+      const bodyEl = document.getElementById("writingBody");
+
+      function escapeHtml(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function getHashId() {
+        const raw = (location.hash || "").replace("#", "").trim();
+        return raw || null;
+      }
+
+      function setActive(id) {
+        const items = listEl.querySelectorAll("[data-article-id]");
+        items.forEach((a) => {
+          a.classList.toggle("active", a.getAttribute("data-article-id") === id);
+        });
+      }
+
+      async function loadArticle(id, meta) {
+        setActive(id);
+
+        bodyEl.innerHTML = `
+          <p class="muted small">Loading…</p>
+        `;
+
+        try {
+          const res = await fetch(ARTICLE_BASE + id + ".html", { cache: "no-store" });
+          if (!res.ok) throw new Error("Fetch failed: " + res.status);
+
+          const html = await res.text();
+          bodyEl.innerHTML = html;
+
+          if (meta && meta.title) {
+            document.title = meta.title + " | Writing | Srujan Sudam";
+          } else {
+            document.title = "Writing | Srujan Sudam";
+          }
+
+          if (!location.hash || location.hash !== "#" + id) {
+            history.replaceState(null, "", "#" + id);
+          }
+
+          bodyEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        } catch (e) {
+          bodyEl.innerHTML = `
+            <h2>Could not load article</h2>
+            <p class="muted small">
+              Something went wrong loading this piece. Please try again.
+            </p>
+          `;
+          document.title = "Writing | Srujan Sudam";
+        }
+      }
+
+      function renderList(items) {
+        const html = items
+          .map((it) => {
+            const title = escapeHtml(it.title || it.id);
+            const date = escapeHtml(it.date || "");
+            const excerpt = escapeHtml(it.excerpt || "");
+            const status = it.status === "draft" ? "Draft" : "";
+
+            return `
+              <a class="writing-item" href="#${escapeHtml(it.id)}" data-article-id="${escapeHtml(it.id)}">
+                <div class="writing-item-top">
+                  <div class="writing-item-title">${title}</div>
+                  <div class="writing-item-meta muted">${date}${status ? " · " + status : ""}</div>
+                </div>
+                ${excerpt ? `<div class="writing-item-excerpt muted">${excerpt}</div>` : ""}
+              </a>
+            `;
+          })
+          .join("");
+
+        listEl.innerHTML = html;
+      }
+
+      async function init() {
+        try {
+          const res = await fetch(INDEX_URL, { cache: "no-store" });
+          if (!res.ok) throw new Error("Index fetch failed: " + res.status);
+          const items = await res.json();
+
+          renderList(items);
+
+          const byId = new Map(items.map((x) => [x.id, x]));
+          const initial = getHashId() || (items[0] && items[0].id);
+
+          if (initial && byId.has(initial)) {
+            loadArticle(initial, byId.get(initial));
+          }
+
+          window.addEventListener("hashchange", () => {
+            const id = getHashId();
+            if (id && byId.has(id)) loadArticle(id, byId.get(id));
+          });
+        } catch (e) {
+          listEl.innerHTML = `<div class="muted small">Could not load index.</div>`;
+        }
+      }
+
+      init();
+    </script>
+  </body>
+</html>
