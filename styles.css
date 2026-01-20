@@ -654,3 +654,96 @@ html{
   background: rgba(0,0,0,0.18);
 }
 
+/* Writing hub layout */
+.writing-layout{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.writing-sidebar{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.12);
+  padding: 12px;
+}
+
+.writing-sidebar-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.writing-sidebar-title{
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.writing-list{
+  display:grid;
+  gap: 8px;
+}
+
+.writing-item{
+  display:block;
+  padding: 10px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.14);
+  text-decoration:none;
+}
+
+.writing-item:hover{
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.05);
+  text-decoration:none;
+}
+
+.writing-item.active{
+  border-color: rgba(124,58,237,0.35);
+  background: linear-gradient(90deg, rgba(124,58,237,0.16), rgba(6,182,212,0.10));
+}
+
+.writing-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap: 10px;
+  align-items:flex-start;
+}
+
+.writing-item-title{
+  font-weight: 650;
+  font-size: 13px;
+  color: rgba(234,240,255,0.92);
+}
+
+.writing-item-meta{
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.writing-item-excerpt{
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.writing-content{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.10);
+  padding: 14px;
+  min-height: 520px;
+}
+
+@media (min-width: 980px){
+  .writing-layout{
+    grid-template-columns: 360px 1fr;
+    align-items:start;
+  }
+}
+
