@@ -295,3 +295,235 @@ code.inline{
   font-size: 12px;
   color: rgba(234,240,255,0.82);
 }
+
+/* Work page additions */
+
+/* Impact strip */
+.impact{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.impact-item{
+  grid-column: span 12;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+}
+.impact-k{
+  display:block;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(234,240,255,0.70);
+}
+.impact-v{
+  display:block;
+  margin-top: 4px;
+  font-weight: 750;
+  font-size: 16px;
+  color: rgba(234,240,255,0.95);
+}
+.impact-s{
+  display:block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: rgba(234,240,255,0.58);
+}
+
+@media (min-width: 900px){
+  .impact-item{grid-column: span 4;}
+}
+
+/* Geography ribbon */
+.geo{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.geo-item{
+  grid-column: span 12;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+}
+.geo-k{
+  display:block;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(234,240,255,0.70);
+}
+.geo-v{
+  display:block;
+  margin-top: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  color: rgba(234,240,255,0.95);
+}
+.geo-s{
+  display:block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: rgba(234,240,255,0.58);
+}
+@media (min-width: 900px){
+  .geo-item{grid-column: span 4;}
+}
+
+/* Industry pills */
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top: 10px;
+}
+.pill2{
+  display:inline-flex;
+  align-items:center;
+  font-size:12px;
+  color: rgba(234,240,255,0.78);
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.20);
+}
+
+/* Decision trail */
+.trail{
+  margin-top: 10px;
+}
+.trail-item{
+  display:grid;
+  grid-template-columns: 34px 1fr;
+  gap: 10px;
+  padding: 10px 0;
+}
+.trail-left{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.trail-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 6px;
+  background: rgba(6,182,212,0.9);
+  box-shadow: 0 0 0 7px rgba(6,182,212,0.12);
+}
+.trail-line{
+  position:absolute;
+  top: 22px;
+  bottom: -12px;
+  width: 2px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 8px;
+}
+.trail-body{
+  padding: 12px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+}
+.trail-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  margin-bottom: 8px;
+}
+.trail-time{
+  font-size:11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(234,240,255,0.75);
+}
+.trail-tag{
+  font-size:11px;
+  color: rgba(234,240,255,0.68);
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+}
+.trail-title{
+  margin: 0 0 8px;
+  font-size: 18px;
+  letter-spacing: -0.2px;
+}
+.trail-grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.trail-box{
+  grid-column: span 12;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+}
+.trail-k{
+  display:block;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(234,240,255,0.70);
+}
+.trail-v{
+  display:block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: rgba(234,240,255,0.68);
+}
+
+@media (min-width: 900px){
+  .trail-box{grid-column: span 4;}
+}
+
+/* Chapter 4 split */
+.trail-split{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.trail-col{
+  grid-column: span 12;
+}
+.trail-subtitle{
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(234,240,255,0.82);
+}
+@media (min-width: 900px){
+  .trail-col{grid-column: span 6;}
+}
+
+/* Craft section */
+.craft-grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.craft-item{
+  grid-column: span 12;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+}
+@media (min-width: 900px){
+  .craft-item{grid-column: span 6;}
+}
+
