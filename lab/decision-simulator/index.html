@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Decision Simulator | Lab | Srujan Sudam</title>
+
+    <meta
+      name="description"
+      content="A short decision simulator that pressure-tests common AI initiative choices and exposes second-order effects."
+    />
+    <meta name="author" content="Srujan Sudam" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://srujansudam55.github.io/lab/decision-simulator/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <div class="name">Srujan Sudam</div>
+            <div class="tag">AI strategy. Judgment. Value realisation.</div>
+          </div>
+
+          <nav>
+            <a href="/">Home</a>
+
+            <div class="nav-dd">
+              <a class="nav-dd-trigger" href="/work/" aria-haspopup="true">
+                Work <span class="nav-caret" aria-hidden="true">▾</span>
+              </a>
+              <div class="nav-dd-menu" role="menu">
+                <a role="menuitem" href="/work/">Work overview</a>
+                <a role="menuitem" href="/tools/">Tools</a>
+              </div>
+            </div>
+
+            <a href="/writing/">Writing</a>
+            <a href="/frameworks/">Frameworks</a>
+            <a href="/lab/">Lab</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-top">
+          <div class="pill">Lab</div>
+          <div class="pill">90 seconds</div>
+        </div>
+
+        <h1>Pressure-test a decision</h1>
+
+        <p>
+          A common situation. Three tempting moves. Second-order effects included.
+          This does not predict your future. It makes the trade-offs visible.
+        </p>
+
+        <div class="cta">
+          <a class="btn" href="/lab/">Back to Lab</a>
+          <a class="btn" href="/work/">View my work</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card span-12">
+          <div class="sim">
+            <div class="sim-left">
+              <h2>Scenario</h2>
+              <p class="small muted" id="scenarioText"></p>
+
+              <div class="divider"></div>
+
+              <h2>Your move</h2>
+              <div id="choices" class="sim-choices"></div>
+
+              <div class="divider"></div>
+
+              <div class="cta">
+                <button class="btn primary" id="nextBtn" type="button" disabled>Next</button>
+                <button class="btn" id="resetBtn" type="button">Restart</button>
+              </div>
+
+              <p class="small muted" id="stepHint" style="margin-top:10px;"></p>
+            </div>
+
+            <div class="sim-right">
+              <h2>What this choice buys you</h2>
+              <ul class="list" id="wins"></ul>
+
+              <div class="divider"></div>
+
+              <h2>What it quietly creates</h2>
+              <ul class="list" id="costs"></ul>
+
+              <div class="divider"></div>
+
+              <h2>What to make explicit</h2>
+              <ul class="list" id="questions"></ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="card span-12" id="resultCard" style="display:none;">
+          <h2>Result</h2>
+          <p class="small" id="resultSummary"></p>
+
+          <div class="divider"></div>
+
+          <ul class="list" id="resultBullets"></ul>
+
+          <div class="divider"></div>
+
+          <div class="cta">
+            <a class="btn primary" href="/work/">See how I run this in real engagements</a>
+            <a class="btn" href="mailto:ssrujansudam@gmail.com?subject=Decision%20pressure-test&body=Hi%20Srujan,%0A%0AI%20want%20to%20pressure-test%20a%20decision%20in%20my%20organisation.%0A%0ADecision:%0AContext:%0AConstraints:%0AStakeholders:%0A%0AThanks,">Email me</a>
+            <a class="btn" href="/lab/">Back to Lab</a>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      const STEPS = [
+        {
+          scenario:
+            "A backlog is growing. Senior people are pulled into escalations. Leadership says: “We need AI.” What do you do first?",
+          hint: "Pick the first move you would make. Then we show the second-order effects.",
+          choices: [
+            {
+              id: "buy",
+              title: "Buy an AI tool to triage and route work",
+              wins: [
+                "You reduce manual sorting quickly.",
+                "You can show visible speed gains early.",
+                "You standardise intake and categorisation."
+              ],
+              costs: [
+                "Ownership stays fuzzy, so escalations still happen.",
+                "Edge cases become political fights and exceptions grow.",
+                "The tool becomes the scapegoat when outcomes do not improve."
+              ],
+              questions: [
+                "What is the decision that still needs a human owner?",
+                "What is the challenge line for borderline cases?",
+                "Who is accountable when the tool is wrong, and who has authority to override?"
+              ],
+              score: { clarity: -1, speed: +2, durability: -1 }
+            },
+            {
+              id: "process",
+              title: "Redesign the workflow and metrics",
+              wins: [
+                "You reduce chaos and rework with clearer flow.",
+                "You can remove failure modes before adding technology.",
+                "You improve predictability and capacity planning."
+              ],
+              costs: [
+                "If decision ownership stays unclear, the redesign stalls.",
+                "Metrics can be gamed if incentives are misaligned.",
+                "You may optimise flow but still miss the decision bottleneck."
+              ],
+              questions: [
+                "Where does the decision actually happen in the workflow?",
+                "Which metric would you protect on a bad day?",
+                "Who can make the hard call when exceptions appear?"
+              ],
+              score: { clarity: +1, speed: 0, durability: +1 }
+            },
+            {
+              id: "decision",
+              title: "Define the decision, ownership, and the challenge line",
+              wins: [
+                "You make the real bottleneck visible.",
+                "You create accountability that survives tools and teams.",
+                "You can target support where it is safe and useful."
+              ],
+              costs: [
+                "It forces uncomfortable conversations early.",
+                "You may discover there is no true owner today.",
+                "It can feel slower for a week, then faster for months."
+              ],
+              questions: [
+                "What outcome changes if this decision is made well?",
+                "Who is the owner when the case is ambiguous?",
+                "What must be challenged, and what can pass automatically?"
+              ],
+              score: { clarity: +2, speed: 0, durability: +2 }
+            }
+          ]
+        },
+        {
+          scenario:
+            "Now imagine you must deliver improvements in 6 to 8 weeks. What do you prioritise to avoid a short-lived win?",
+          hint: "Pick what you protect when the timeline is tight.",
+          choices: [
+            {
+              id: "dashboard",
+              title: "Dashboards and reporting to show progress",
+              wins: [
+                "You create visibility and a shared language.",
+                "You can spot obvious bottlenecks quickly."
+              ],
+              costs: [
+                "Visibility does not equal ownership.",
+                "Teams can argue about metrics instead of making decisions.",
+                "Dashboards often measure activity, not outcomes."
+              ],
+              questions: [
+                "Which decisions will change because of this view?",
+                "Who is responsible for acting on the signal?",
+                "What would you stop doing based on the dashboard?"
+              ],
+              score: { clarity: 0, speed: +1, durability: 0 }
+            },
+            {
+              id: "governance",
+              title: "Governance and decision rights",
+              wins: [
+                "You prevent exception drift and endless escalations.",
+                "You create an operating rhythm that lasts."
+              ],
+              costs: [
+                "If it becomes theatre, it slows everything down.",
+                "If rights are unclear, meetings multiply."
+              ],
+              questions: [
+                "Where are decisions made today, and why?",
+                "What is the smallest governance that still protects outcomes?",
+                "What decisions must never be delegated to a tool?"
+              ],
+              score: { clarity: +2, speed: 0, durability: +2 }
+            },
+            {
+              id: "pilot",
+              title: "A quick pilot to prove feasibility",
+              wins: [
+                "You learn fast and reduce speculative debate.",
+                "You can validate data quality and integration constraints."
+              ],
+              costs: [
+                "A pilot can become the product if ownership is missing.",
+                "Teams confuse feasibility with value.",
+                "Operational edges are often excluded, then return later."
+              ],
+              questions: [
+                "What decision does the pilot make easier?",
+                "What will you measure that cannot be faked?",
+                "Who owns the system after the demo succeeds?"
+              ],
+              score: { clarity: +1, speed: +1, durability: 0 }
+            }
+          ]
+        }
+      ];
+
+      const state = {
+        step: 0,
+        selected: null,
+        totals: { clarity: 0, speed: 0, durability: 0 }
+      };
+
+      const scenarioText = document.getElementById("scenarioText");
+      const choicesEl = document.getElementById("choices");
+      const winsEl = document.getElementById("wins");
+      const costsEl = document.getElementById("costs");
+      const questionsEl = document.getElementById("questions");
+      const nextBtn = document.getElementById("nextBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const stepHint = document.getElementById("stepHint");
+      const resultCard = document.getElementById("resultCard");
+      const resultSummary = document.getElementById("resultSummary");
+      const resultBullets = document.getElementById("resultBullets");
+
+      function renderList(el, items) {
+        el.innerHTML = "";
+        items.forEach((t) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span class="v">${t}</span>`;
+          el.appendChild(li);
+        });
+      }
+
+      function renderStep() {
+        const step = STEPS[state.step];
+        scenarioText.textContent = step.scenario;
+        stepHint.textContent = step.hint;
+
+        state.selected = null;
+        nextBtn.disabled = true;
+
+        winsEl.innerHTML = `<li><span class="v muted">Select an option to see the effects.</span></li>`;
+        costsEl.innerHTML = `<li><span class="v muted">Select an option to see the effects.</span></li>`;
+        questionsEl.innerHTML = `<li><span class="v muted">Select an option to see what must be made explicit.</span></li>`;
+
+        choicesEl.innerHTML = "";
+        step.choices.forEach((c) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "sim-choice";
+          btn.setAttribute("data-choice", c.id);
+          btn.innerHTML = `<div class="sim-choice-title">${c.title}</div><div class="sim-choice-sub muted">Click to preview consequences</div>`;
+          btn.addEventListener("click", () => selectChoice(c.id));
+          choicesEl.appendChild(btn);
+        });
+
+        resultCard.style.display = "none";
+      }
+
+      function selectChoice(choiceId) {
+        const step = STEPS[state.step];
+        const c = step.choices.find((x) => x.id === choiceId);
+        if (!c) return;
+
+        state.selected = c;
+
+        const buttons = choicesEl.querySelectorAll(".sim-choice");
+        buttons.forEach((b) => b.classList.toggle("active", b.getAttribute("data-choice") === choiceId));
+
+        renderList(winsEl, c.wins);
+        renderList(costsEl, c.costs);
+        renderList(questionsEl, c.questions);
+
+        nextBtn.disabled = false;
+      }
+
+      function finish() {
+        const t = state.totals;
+
+        let headline = "You prioritised speed.";
+        let guidance = "Speed can be useful, but only if ownership and decision boundaries are made explicit early.";
+
+        if (t.clarity >= 3 && t.durability >= 3) {
+          headline = "You built for durability.";
+          guidance = "This is how strategy holds up. Clear decision rights, explicit boundaries, and support that scales.";
+        } else if (t.clarity >= 3) {
+          headline = "You anchored on decision clarity.";
+          guidance = "Good. Now make it operational: governance that is light, and support that targets the decision bottleneck.";
+        } else if (t.durability >= 3) {
+          headline = "You protected what survives.";
+          guidance = "You are optimising for real outcomes, not demos. Keep it strict on ownership and incentives.";
+        }
+
+        resultSummary.textContent = headline + " " + guidance;
+
+        const bullets = [
+          "Make the decision explicit before you add tooling.",
+          "Define the challenge line so exceptions do not turn into politics.",
+          "Assign ownership that remains true when the system is wrong, not only when it is right.",
+          "Treat adoption, governance, and edge cases as first-order design inputs."
+        ];
+
+        resultBullets.innerHTML = bullets
+          .map((b) => `<li><span class="v">${b}</span></li>`)
+          .join("");
+
+        resultCard.style.display = "block";
+        resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      nextBtn.addEventListener("click", () => {
+        if (!state.selected) return;
+
+        state.totals.clarity += state.selected.score.clarity || 0;
+        state.totals.speed += state.selected.score.speed || 0;
+        state.totals.durability += state.selected.score.durability || 0;
+
+        state.step += 1;
+
+        if (state.step >= STEPS.length) {
+          finish();
+          nextBtn.disabled = true;
+          return;
+        }
+
+        renderStep();
+      });
+
+      resetBtn.addEventListener("click", () => {
+        state.step = 0;
+        state.selected = null;
+        state.totals = { clarity: 0, speed: 0, durability: 0 };
+        renderStep();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      renderStep();
+    </script>
+  </body>
+</html>
