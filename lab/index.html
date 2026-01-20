@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab | Srujan Sudam</title>
+
+    <meta
+      name="description"
+      content="Lab by Srujan Sudam. Small interactive experiments to pressure-test decisions and expose trade-offs."
+    />
+    <meta name="author" content="Srujan Sudam" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://srujansudam55.github.io/lab/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <div class="name">Srujan Sudam</div>
+            <div class="tag">AI strategy. Judgment. Value realisation.</div>
+          </div>
+
+          <nav>
+            <a href="/">Home</a>
+
+            <div class="nav-dd">
+              <a class="nav-dd-trigger" href="/work/" aria-haspopup="true">
+                Work <span class="nav-caret" aria-hidden="true">▾</span>
+              </a>
+              <div class="nav-dd-menu" role="menu">
+                <a role="menuitem" href="/work/">Work overview</a>
+                <a role="menuitem" href="/tools/">Tools</a>
+              </div>
+            </div>
+
+            <a href="/writing/">Writing</a>
+            <a href="/frameworks/">Frameworks</a>
+            <a href="/lab/">Lab</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-top">
+          <div class="pill">Lab</div>
+          <div class="pill">Interactive experiments</div>
+        </div>
+
+        <h1>Lab</h1>
+
+        <p>
+          Short experiments that pressure-test decisions and expose trade-offs.
+          Optional. Practical. Built to make conversations stricter.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="/lab/decision-simulator/">Try the 90 second simulator</a>
+          <a class="btn" href="/writing/#why-i-build-tools">Why I build tools</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card span-12">
+          <h2>Experiments</h2>
+
+          <ul class="list">
+            <li>
+              <span class="k">
+                <a href="/lab/decision-simulator/">Pressure-test a decision</a>
+              </span>
+              <span class="v">
+                A short scenario that shows why many AI initiatives fail before the model is built.
+              </span>
+            </li>
+            <li>
+              <span class="k">Judgment boundary explorer</span>
+              <span class="v">
+                Coming soon. Define when humans must challenge, not accept.
+              </span>
+            </li>
+            <li>
+              <span class="k">Trade-off slider</span>
+              <span class="v">
+                Coming soon. Move one lever, watch second-order effects show up.
+              </span>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small muted">
+            If you want a version built for your context, email me and tell me the decision you are stuck on.
+          </p>
+
+          <div class="cta">
+            <a
+              class="btn primary"
+              href="mailto:ssrujansudam@gmail.com?subject=Lab%20tool%20for%20my%20context&body=Hi%20Srujan,%0A%0AI%20want%20a%20small%20tool%20to%20pressure-test%20a%20decision.%0A%0ADecision:%0AContext:%0AConstraints:%0AStakeholders:%0A%0AThanks,"
+            >
+              Email me
+            </a>
+            <a class="btn" href="/work/">View my work</a>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
