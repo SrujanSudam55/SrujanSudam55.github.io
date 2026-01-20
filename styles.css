@@ -748,3 +748,60 @@ html{
   }
 }
 
+/* Lab simulator */
+.sim{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.sim-left, .sim-right{
+  padding: 0;
+}
+
+.sim-choices{
+  display: grid;
+  gap: 10px;
+}
+
+.sim-choice{
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  color: rgba(234,240,255,0.92);
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.sim-choice:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.05);
+}
+
+.sim-choice.active{
+  border-color: rgba(124,58,237,0.35);
+  background: linear-gradient(90deg, rgba(124,58,237,0.16), rgba(6,182,212,0.10));
+}
+
+.sim-choice-title{
+  font-weight: 650;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.sim-choice-sub{
+  font-size: 12px;
+}
+
+@media (min-width: 980px){
+  .sim{
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+
