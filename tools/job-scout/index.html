@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Basic meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Scout | Srujan Sudam</title>
+
+    <meta
+      name="description"
+      content="Job Scout. A local, reliability-first job discovery system that prioritises relevance, explainability, and repeatable daily use."
+    />
+    <meta name="author" content="Srujan Sudam" />
+    <meta name="robots" content="index,follow" />
+
+    <link
+      rel="canonical"
+      href="https://srujansudam55.github.io/tools/job-scout/"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <div class="name">Srujan Sudam</div>
+            <div class="tag">AI strategy. Judgment. Value realisation.</div>
+          </div>
+
+          <nav>
+            <a href="/work/">Work</a>
+            <a href="/#frameworks">Frameworks</a>
+            <a href="/#writing">Writing</a>
+            <a href="/#about">About</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-top">
+          <div class="pill">
+            <a href="/tools/">Tools</a>
+            <span class="muted"> / </span>
+            Job Scout
+          </div>
+          <div class="pill">Local-first</div>
+          <div class="pill">Relevance over volume</div>
+        </div>
+
+        <h1>
+          Job Scout
+        </h1>
+
+        <p>
+          Job Scout is a local, single-user job discovery system built to answer one question well:
+          <br /><br />
+          <strong>“Which roles are actually worth my attention today, and why?”</strong>
+        </p>
+
+        <div class="cta">
+          <a
+            class="btn primary"
+            href="https://github.com/SrujanSudam55/job-scout"
+            target="_blank"
+            rel="noopener"
+          >
+            View the repo on GitHub
+          </a>
+          <a class="btn" href="/tools/">Back to tools</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <!-- What problem -->
+        <section class="card span-7">
+          <h2>The problem it solves</h2>
+
+          <p class="small">
+            Most job alerts optimise for coverage, not relevance.
+            They surface volume, repeat noise, and hide why something matched.
+          </p>
+
+          <ul class="list">
+            <li>
+              <span class="k">Signal decay</span>
+              <span class="v">Job boards prioritise freshness and reach, not fit.</span>
+            </li>
+            <li>
+              <span class="k">Duplicate fatigue</span>
+              <span class="v">The same roles resurface across days with no memory.</span>
+            </li>
+            <li>
+              <span class="k">Opaque matching</span>
+              <span class="v">No explanation of why a role is considered relevant.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Design principles -->
+        <section class="card span-5">
+          <h2>Design principles</h2>
+
+          <ul class="list">
+            <li>
+              <span class="k">Local and reliable</span>
+              <span class="v">Runs locally on a schedule. No accounts, no hosting.</span>
+            </li>
+            <li>
+              <span class="k">Relevance first</span>
+              <span class="v">Ranks jobs using role-specific examples and a CV.</span>
+            </li>
+            <li>
+              <span class="k">Explainable by default</span>
+              <span class="v">Every match includes a human-readable reason.</span>
+            </li>
+            <li>
+              <span class="k">Memory built in</span>
+              <span class="v">Deduplicates across days and tracks job lifecycle.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- How it works -->
+        <section class="card span-12">
+          <h2>How it works</h2>
+
+          <ul class="list">
+            <li>
+              <span class="k">Curated source registry</span>
+              <span class="v">A manually maintained Excel file defines which company career pages are scraped.</span>
+            </li>
+            <li>
+              <span class="k">Modular scraping</span>
+              <span class="v">Adapters for common ATS platforms with browser fallback for JS-heavy pages.</span>
+            </li>
+            <li>
+              <span class="k">Normalized job schema</span>
+              <span class="v">All jobs conform to a single schema before storage or ranking.</span>
+            </li>
+            <li>
+              <span class="k">Persistent local memory</span>
+              <span class="v">SQLite tracks first seen, last seen, and active status.</span>
+            </li>
+            <li>
+              <span class="k">Role-specific ranking</span>
+              <span class="v">Jobs are scored using example JDs and CV text, with deterministic outputs.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Outputs -->
+        <section class="card span-7">
+          <h2>Outputs</h2>
+
+          <ul class="list">
+            <li>
+              <span class="k">Daily Top 20</span>
+              <span class="v">A clean, ranked list of the most relevant roles with links and reasons.</span>
+            </li>
+            <li>
+              <span class="k">Full ranked list</span>
+              <span class="v">All matched roles for inspection and comparison.</span>
+            </li>
+            <li>
+              <span class="k">Artifacts, not state</span>
+              <span class="v">Outputs are disposable. The database is the memory.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Why it exists -->
+        <section class="card span-5">
+          <h2>Why this exists</h2>
+
+          <p class="small">
+            Job Scout is not a product. It is a thinking instrument.
+          </p>
+
+          <p class="small muted">
+            It reflects how I approach systems:
+            define boundaries, enforce schema, build memory, and optimise for repeatable usefulness.
+          </p>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
