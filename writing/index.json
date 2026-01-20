@@ -1,0 +1,30 @@
+[
+  {
+    "id": "why-i-build-tools",
+    "title": "Why I Build Tools",
+    "date": "2026-01-20",
+    "status": "published",
+    "excerpt": "Tools are not the work. They are how thinking stops being theoretical."
+  },
+  {
+    "id": "ownership-after-the-win",
+    "title": "Ownership After the Win",
+    "date": "2026-01-10",
+    "status": "draft",
+    "excerpt": "A win without ownership is temporary. Someone has to keep the lighthouse on."
+  },
+  {
+    "id": "ai-tasks-vs-judgment",
+    "title": "AI: Tasks vs Judgment",
+    "date": "2026-01-05",
+    "status": "draft",
+    "excerpt": "Speed is easy to measure. Judgment is harder, and that is where outcomes live."
+  },
+  {
+    "id": "choice-paralysis",
+    "title": "Choice Paralysis",
+    "date": "2026-01-01",
+    "status": "draft",
+    "excerpt": "Waiting for a list is the new quiet failure."
+  }
+]
