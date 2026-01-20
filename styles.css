@@ -622,3 +622,35 @@ html{
   }
 }
 
+/* Essay formatting */
+.essay{
+  max-width: 78ch;
+  margin: 0 auto;
+}
+
+.essay h2{
+  margin: 18px 0 10px;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  color: rgba(234,240,255,0.92);
+}
+
+.essay p{
+  margin: 10px 0;
+  font-size: 15px;
+  color: rgba(234,240,255,0.82);
+}
+
+.essay .muted{
+  color: rgba(234,240,255,0.68);
+}
+
+.quote{
+  margin: 14px 0;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+}
+
