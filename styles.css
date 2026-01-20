@@ -527,3 +527,36 @@ code.inline{
   .craft-item{grid-column: span 6;}
 }
 
+/* Mini chapter selector */
+.chapters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top: 10px;
+}
+.chapter-link{
+  display:inline-flex;
+  align-items:center;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.20);
+  color: rgba(234,240,255,0.82);
+  font-size: 12px;
+  text-decoration: none;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+.chapter-link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.06);
+  text-decoration:none;
+  color: rgba(234,240,255,0.95);
+}
+
+/* Optional: smoother jump scrolling */
+html{
+  scroll-behavior: smooth;
+}
+
+
