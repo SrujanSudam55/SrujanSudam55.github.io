@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Basic meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ecosystem Sustainability Simulator | Srujan Sudam</title>
+
+    <meta
+      name="description"
+      content="A constraint-based ecosystem sustainability simulator. Deterministic, order-sensitive feasibility evaluation under shared resource constraints."
+    />
+    <meta name="author" content="Srujan Sudam" />
+    <meta name="robots" content="index,follow" />
+
+    <link
+      rel="canonical"
+      href="https://srujansudam55.github.io/tools/ecosystem-sustainability-simulator/"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <div class="name">Srujan Sudam</div>
+            <div class="tag">AI strategy. Judgment. Value realisation.</div>
+          </div>
+
+          <nav>
+            <a href="/#work">Work</a>
+            <a href="/#frameworks">Frameworks</a>
+            <a href="/#writing">Writing</a>
+            <a href="/tools/">Tools</a>
+            <a href="/#about">About</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-top">
+          <div class="pill"><a href="/tools/">Tools</a> <span class="muted">/</span> Simulator</div>
+          <div class="pill">Deterministic feasibility</div>
+        </div>
+
+        <h1>
+          Ecosystem Sustainability Simulator
+        </h1>
+
+        <p>
+          A constraint-based simulator for ecosystems where agents compete for shared resources,
+          consumption follows priority rules, and depletion is irreversible.
+          The point is feasibility, not optimization.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/SrujanSudam55/ecosystem_sustainability_simulator" target="_blank" rel="noopener">
+            View the repo on GitHub
+          </a>
+          <a class="btn" href="/tools/">Back to tools</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card span-7">
+          <h2>What it does</h2>
+
+          <ul class="list">
+            <li>
+              <span class="k">Enumerates combinations</span>
+              <span class="v">Evaluates all valid subsets and checks which ones are globally sustainable.</span>
+            </li>
+            <li>
+              <span class="k">Simulates sequential consumption</span>
+              <span class="v">Applies greedy priority-based consumption rules and updates state after each action.</span>
+            </li>
+            <li>
+              <span class="k">Detects failure conditions</span>
+              <span class="v">Flags unmet needs and full resource depletion as unsustainable by design.</span>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small muted">
+            This project is about translating narrative rules into executable logic and showing where intuition fails in dynamic systems.
+          </p>
+        </section>
+
+        <section class="card span-5">
+          <h2>Quick run</h2>
+
+          <ul class="list">
+            <li>
+              <span class="k">Install</span>
+              <span class="v">pip install pandas openpyxl</span>
+            </li>
+            <li>
+              <span class="k">Run</span>
+              <span class="v">python solve_ecosystem.py</span>
+            </li>
+            <li>
+              <span class="k">Input and output</span>
+              <span class="v">Uses input.xlsx and exports results to solve_output.xlsx for inspection.</span>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="small">
+            Repo: <a href="https://github.com/SrujanSudam55/ecosystem_sustainability_simulator" target="_blank" rel="noopener">ecosystem_sustainability_simulator</a>
+          </p>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
