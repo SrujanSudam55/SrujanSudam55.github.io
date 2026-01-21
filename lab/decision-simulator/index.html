@@ -309,6 +309,18 @@
       const resultCard = document.getElementById("resultCard");
       const resultSummary = document.getElementById("resultSummary");
       const resultBullets = document.getElementById("resultBullets");
+      // HUD elements
+      const hudStep = document.getElementById("hudStep");
+      const hudProgress = document.getElementById("hudProgress");
+      
+      const mClarity = document.getElementById("mClarity");
+      const mSpeed = document.getElementById("mSpeed");
+      const mDurability = document.getElementById("mDurability");
+      
+      const vClarity = document.getElementById("vClarity");
+      const vSpeed = document.getElementById("vSpeed");
+      const vDurability = document.getElementById("vDurability");
+
 
       function renderList(el, items) {
         el.innerHTML = "";
@@ -318,6 +330,50 @@
           el.appendChild(li);
         });
       }
+
+      function clamp(n, min, max) {
+        return Math.max(min, Math.min(max, n));
+      }
+      
+      // Convert your score totals into a 0–100 bar.
+      // Your totals can be negative, so we normalize.
+      // Range assumption: -2..+6 is a sensible visual range for a 2-step game.
+      function scoreToPct(x) {
+        return clamp(((x + 2) / 8) * 100, 0, 100);
+      }
+      
+      function updateHUDFromTotals() {
+        const totalSteps = STEPS.length;
+        const current = clamp(state.step + 1, 1, totalSteps);
+      
+        hudStep.textContent = `Step ${current} of ${totalSteps}`;
+        hudProgress.style.width = `${((current - 1) / totalSteps) * 100}%`;
+      
+        vClarity.textContent = state.totals.clarity;
+        vSpeed.textContent = state.totals.speed;
+        vDurability.textContent = state.totals.durability;
+      
+        mClarity.style.width = `${scoreToPct(state.totals.clarity)}%`;
+        mSpeed.style.width = `${scoreToPct(state.totals.speed)}%`;
+        mDurability.style.width = `${scoreToPct(state.totals.durability)}%`;
+      }
+      
+      function previewHUDWithChoice(choice) {
+        const p = {
+          clarity: state.totals.clarity + (choice.score.clarity || 0),
+          speed: state.totals.speed + (choice.score.speed || 0),
+          durability: state.totals.durability + (choice.score.durability || 0)
+        };
+      
+        vClarity.textContent = p.clarity;
+        vSpeed.textContent = p.speed;
+        vDurability.textContent = p.durability;
+      
+        mClarity.style.width = `${scoreToPct(p.clarity)}%`;
+        mSpeed.style.width = `${scoreToPct(p.speed)}%`;
+        mDurability.style.width = `${scoreToPct(p.durability)}%`;
+      }
+
 
       function renderStep() {
         const step = STEPS[state.step];
@@ -343,6 +399,7 @@
         });
 
         resultCard.style.display = "none";
+        updateHUDFromTotals();
       }
 
       function selectChoice(choiceId) {
@@ -360,6 +417,7 @@
         renderList(questionsEl, c.questions);
 
         nextBtn.disabled = false;
+        previewHUDWithChoice(c);
       }
 
       function finish() {
@@ -403,6 +461,8 @@
         state.totals.speed += state.selected.score.speed || 0;
         state.totals.durability += state.selected.score.durability || 0;
 
+        updateHUDFromTotals();
+
         state.step += 1;
 
         if (state.step >= STEPS.length) {
@@ -418,11 +478,13 @@
         state.step = 0;
         state.selected = null;
         state.totals = { clarity: 0, speed: 0, durability: 0 };
+        updateHUDFromTotals();
         renderStep();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
       renderStep();
+      updateHUDFromTotals();
     </script>
   </body>
 </html>
