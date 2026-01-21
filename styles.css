@@ -820,12 +820,32 @@ html{
 }
 
 .brand{
+  color: var(--text);        /* stays white */
   text-decoration: none;
-  color: white;
 }
+
 .brand:hover{
+  color: var(--link);        /* or pick --a1 if you want violet */
   text-decoration: none;
 }
+
+.brand:visited{
+  color: var(--text);        /* prevents purple/blue visited state */
+}
+
+.brand:focus-visible{
+  outline: 2px solid rgba(124,58,237,0.4);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.brand:hover .name{
+  color: var(--link);
+}
+.brand:hover .tag{
+  color: var(--muted);
+}
+
 
 
 
