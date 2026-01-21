@@ -1193,6 +1193,18 @@ html{
   background: rgba(255,255,255,0.04) !important;
 }
 
-body{ outline: 5px solid red; }
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+  color: rgba(255,255,255,0.92);
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgba(180,120,255,0.45);
+}
 
 
