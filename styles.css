@@ -819,6 +819,14 @@ html{
   }
 }
 
+.brand{
+  text-decoration: none;
+  color: inherit;
+}
+.brand:hover{
+  text-decoration: none;
+}
+
 
 
 
