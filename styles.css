@@ -804,4 +804,19 @@ html{
   }
 }
 
+/* Home: Lab + Contact pair */
+.pair{
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 900px){
+  .pair{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
 
