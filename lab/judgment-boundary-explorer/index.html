@@ -46,7 +46,6 @@
         </div>
       </header>
 
-      <!-- HERO -->
       <section class="hero">
         <div class="hero-top">
           <div class="pill">Lab</div>
@@ -67,13 +66,11 @@
       </section>
 
       <div class="grid">
-        <!-- SIMULATOR -->
         <section class="card span-12">
-          <!-- HUD -->
           <div class="hud">
             <div class="hud-left">
               <div class="hud-title">Mission: Draw the judgment boundary</div>
-              <div class="hud-sub muted">Adjust the signals</div>
+              <div class="hud-sub muted">Use a preset, then tune the signals</div>
             </div>
 
             <div class="hud-right">
@@ -90,8 +87,32 @@
           <div class="divider"></div>
 
           <div class="sim">
-            <!-- LEFT -->
             <div class="sim-left">
+              <h2>Presets</h2>
+              <p class="small muted">
+                Start with reality. Then adjust.
+              </p>
+
+              <div class="cta" style="flex-wrap:wrap;">
+                <button class="btn" type="button" data-preset="fs_credit">
+                  FS: credit approval
+                </button>
+                <button class="btn" type="button" data-preset="public_benefits">
+                  Public: eligibility
+                </button>
+                <button class="btn" type="button" data-preset="ops_triage">
+                  Ops: backlog triage
+                </button>
+                <button class="btn" type="button" data-preset="fraud_alerts">
+                  FS: fraud alerts
+                </button>
+                <button class="btn" type="button" data-preset="customer_refund">
+                  Customer: refunds
+                </button>
+              </div>
+
+              <div class="divider"></div>
+
               <h2>Signals</h2>
               <p class="small muted">
                 Set these honestly. Optimism is the usual failure mode.
@@ -126,12 +147,24 @@
 
               <div class="divider"></div>
 
-              <div class="cta">
-                <button class="btn" id="resetBtn">Reset</button>
+              <h2>Challenge line</h2>
+              <p class="small muted">
+                Write the boundary. If you cannot write it, you cannot automate it.
+              </p>
+
+              <textarea
+                id="challengeLine"
+                class="input"
+                rows="4"
+                placeholder="Example: Auto-approve only when confidence is high, policy is met, and impact is reversible. Route all borderline and high-impact cases to the owner."
+              ></textarea>
+
+              <div class="cta" style="margin-top:12px;">
+                <button class="btn" id="resetBtn" type="button">Reset</button>
+                <button class="btn primary" id="copyBtn" type="button">Copy debrief</button>
               </div>
             </div>
 
-            <!-- RIGHT -->
             <div class="sim-right">
               <h2>Boundary call</h2>
               <p class="small" id="callHeadline"></p>
@@ -139,22 +172,25 @@
               <div class="divider"></div>
 
               <ul class="list" id="callDetails"></ul>
+
+              <div class="divider"></div>
+
+              <h2>Debrief</h2>
+              <p class="small muted" id="debriefText"></p>
             </div>
           </div>
         </section>
 
-        <!-- CTA -->
         <section class="card span-12">
           <h2>Use this in a real decision</h2>
           <p class="small muted">
-            I use this exact framing in strategy and delivery work to stop automation
+            I use this framing in strategy and delivery work to stop automation
             from drifting into ambiguity.
           </p>
 
           <div class="cta">
-            <a class="btn primary" href="/work/">See how I run this in real engagements</a>
             <a
-              class="btn"
+              class="btn primary"
               href="mailto:ssrujansudam@gmail.com?subject=Judgment%20boundary&body=Hi%20Srujan,%0A%0AI%20want%20to%20work%20through%20a%20judgment%20boundary%20for%20a%20decision.%0A%0ADecision:%0AContext:%0AConstraints:%0A%0AThanks,"
               >Email me</a
             >
@@ -180,69 +216,135 @@
         exceptions: document.getElementById("exceptions")
       };
 
+      const challengeLine = document.getElementById("challengeLine");
+
       const mSafety = document.getElementById("mSafety");
       const vSafety = document.getElementById("vSafety");
       const callHeadline = document.getElementById("callHeadline");
       const callDetails = document.getElementById("callDetails");
+      const debriefText = document.getElementById("debriefText");
+
       const resetBtn = document.getElementById("resetBtn");
+      const copyBtn = document.getElementById("copyBtn");
 
+      const presets = {
+        fs_credit: {
+          name: "FS: credit approval",
+          values: { stake: 9, ambiguity: 6, regulatory: 9, reversibility: 2, exceptions: 5 },
+          line:
+            "Auto-approve only when policy rules are met, confidence is high, and exposure is low. Route borderline, high-exposure, and regulated cases to the accountable owner."
+        },
+        public_benefits: {
+          name: "Public: eligibility",
+          values: { stake: 8, ambiguity: 7, regulatory: 8, reversibility: 3, exceptions: 7 },
+          line:
+            "Automate intake and evidence checks. Keep eligibility decisions human-owned for borderline and high-impact cases, with an explicit appeals path."
+        },
+        ops_triage: {
+          name: "Ops: backlog triage",
+          values: { stake: 4, ambiguity: 4, regulatory: 2, reversibility: 8, exceptions: 5 },
+          line:
+            "Automate classification and routing. Humans own priority rules and handle exceptions that change customer outcomes."
+        },
+        fraud_alerts: {
+          name: "FS: fraud alerts",
+          values: { stake: 8, ambiguity: 7, regulatory: 7, reversibility: 4, exceptions: 8 },
+          line:
+            "AI can rank and cluster alerts. Humans own action decisions. Any customer impact action requires an owner and an auditable rationale."
+        },
+        customer_refund: {
+          name: "Customer: refunds",
+          values: { stake: 5, ambiguity: 5, regulatory: 3, reversibility: 7, exceptions: 4 },
+          line:
+            "Auto-refund only for low-value, low-risk cases with clear policy fit. Route anything ambiguous, disputed, or repeated to a named owner."
+        }
+      };
+
+      function clamp(n, min, max) {
+        return Math.max(min, Math.min(max, n));
+      }
+
+      // Composite risk score converted into a 0-100 "safety" reading.
       function score() {
-        const s =
-          sliders.stake.value * 1.2 +
-          sliders.ambiguity.value * 1.1 +
-          sliders.regulatory.value * 1.2 +
-          (10 - sliders.reversibility.value) * 1.0 +
-          sliders.exceptions.value * 1.1;
+        const stake = Number(sliders.stake.value);
+        const ambiguity = Number(sliders.ambiguity.value);
+        const regulatory = Number(sliders.regulatory.value);
+        const reversibility = Number(sliders.reversibility.value);
+        const exceptions = Number(sliders.exceptions.value);
 
-        return Math.max(0, Math.min(100, Math.round(100 - s * 1.3)));
+        const risk =
+          stake * 1.2 +
+          ambiguity * 1.1 +
+          regulatory * 1.2 +
+          (10 - reversibility) * 1.0 +
+          exceptions * 1.1;
+
+        return clamp(Math.round(100 - risk * 1.3), 0, 100);
+      }
+
+      function setPreset(key) {
+        const p = presets[key];
+        if (!p) return;
+
+        sliders.stake.value = p.values.stake;
+        sliders.ambiguity.value = p.values.ambiguity;
+        sliders.regulatory.value = p.values.regulatory;
+        sliders.reversibility.value = p.values.reversibility;
+        sliders.exceptions.value = p.values.exceptions;
+
+        challengeLine.value = p.line;
+        update();
+      }
+
+      function addBullet(text) {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="v">${text}</span>`;
+        callDetails.appendChild(li);
+      }
+
+      function buildDebrief(pct) {
+        const line = (challengeLine.value || "").trim();
+        const boundary = line ? `Challenge line: ${line}` : "Challenge line: Not set yet.";
+
+        return `Automation safety: ${pct}%. ${boundary}`;
       }
 
       function update() {
         const pct = score();
+
         mSafety.style.width = pct + "%";
         vSafety.textContent = pct + "%";
 
         callDetails.innerHTML = "";
 
         if (pct >= 70) {
-          callHeadline.textContent =
-            "Safe to automate with light human oversight.";
-          add(
-            "Automate repeatable flows, routing, and low-risk approvals."
-          );
-          add(
-            "Keep humans accountable for overrides and policy changes."
-          );
+          callHeadline.textContent = "Safe to automate with light human oversight.";
+          addBullet("Automate repeatable flows, routing, and low-risk approvals.");
+          addBullet("Keep humans accountable for overrides and policy changes.");
+          addBullet("Define what must be escalated before exceptions become politics.");
         } else if (pct >= 45) {
-          callHeadline.textContent =
-            "Hybrid boundary. AI supports. Humans decide.";
-          add(
-            "Use AI for triage, summarisation, and recommendations."
-          );
-          add(
-            "Keep final judgment and exception handling explicitly owned."
-          );
+          callHeadline.textContent = "Hybrid boundary. AI supports. Humans decide.";
+          addBullet("Use AI for triage, summarisation, and recommendations.");
+          addBullet("Keep final judgment and exception handling explicitly owned.");
+          addBullet("Make a hard challenge line for borderline cases.");
         } else {
-          callHeadline.textContent =
-            "Human-owned decision. Automation should stop here.";
-          add(
-            "Use AI only as an assistant, not a decision-maker."
-          );
-          add(
-            "Name a single accountable owner before adding tooling."
-          );
+          callHeadline.textContent = "Human-owned decision. Automation should stop here.";
+          addBullet("Use AI only as an assistant, not a decision-maker.");
+          addBullet("Name a single accountable owner before adding tooling.");
+          addBullet("Automate inputs and evidence gathering, not outcomes.");
         }
+
+        debriefText.textContent = buildDebrief(pct);
       }
 
-      function add(text) {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class="v">${text}</span>`;
-        callDetails.appendChild(li);
-      }
+      // Preset buttons
+      document.querySelectorAll("[data-preset]").forEach((btn) => {
+        btn.addEventListener("click", () => setPreset(btn.getAttribute("data-preset")));
+      });
 
-      Object.values(sliders).forEach((s) =>
-        s.addEventListener("input", update)
-      );
+      // Slider events
+      Object.values(sliders).forEach((s) => s.addEventListener("input", update));
+      challengeLine.addEventListener("input", update);
 
       resetBtn.addEventListener("click", () => {
         sliders.stake.value = 6;
@@ -250,10 +352,32 @@
         sliders.regulatory.value = 7;
         sliders.reversibility.value = 4;
         sliders.exceptions.value = 6;
+        challengeLine.value = "";
         update();
       });
 
-      update();
+      copyBtn.addEventListener("click", async () => {
+        const pct = score();
+        const payload =
+          `Judgment Boundary Debrief\n` +
+          `Automation safety: ${pct}%\n` +
+          `Signals: stakes=${sliders.stake.value}, ambiguity=${sliders.ambiguity.value}, regulatory=${sliders.regulatory.value}, reversibility=${sliders.reversibility.value}, exceptions=${sliders.exceptions.value}\n` +
+          `Boundary call: ${callHeadline.textContent}\n` +
+          `Challenge line: ${(challengeLine.value || "").trim() || "[not set]"}\n`;
+
+        try {
+          await navigator.clipboard.writeText(payload);
+          copyBtn.textContent = "Copied";
+          setTimeout(() => (copyBtn.textContent = "Copy debrief"), 1000);
+        } catch (e) {
+          // Fallback: select text in textarea
+          challengeLine.focus();
+          challengeLine.select();
+        }
+      });
+
+      // Start with a sensible preset
+      setPreset("ops_triage");
     </script>
   </body>
 </html>
