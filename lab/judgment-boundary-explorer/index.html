@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Judgment Boundary Explorer | Lab | Srujan Sudam</title>
+
+    <meta
+      name="description"
+      content="Explore where automation should stop and human judgment must remain explicit."
+    />
+    <meta name="author" content="Srujan Sudam" />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://srujansudam55.github.io/lab/judgment-boundary-explorer/"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="topbar">
+          <a href="/" class="brand">
+            <div class="name">Srujan Sudam</div>
+            <div class="tag">AI strategy. Judgment. Value realisation.</div>
+          </a>
+
+          <nav>
+            <a href="/">Home</a>
+            <a href="/work/">Work</a>
+            <a href="/writing/">Writing</a>
+            <a href="/frameworks/">Frameworks</a>
+            <a href="/lab/">Lab</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-top">
+          <div class="pill">Lab</div>
+          <div class="pill">Boundary explorer</div>
+        </div>
+
+        <h1>Judgment boundary explorer</h1>
+
+        <p>
+          Automation does not fail because models are wrong.
+          It fails when judgment boundaries are never made explicit.
+        </p>
+
+        <div class="cta">
+          <a class="btn" href="/lab/">Back to Lab</a>
+          <a class="btn" href="/work/">View my work</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <!-- SIMULATOR -->
+        <section class="card span-12">
+          <!-- HUD -->
+          <div class="hud">
+            <div class="hud-left">
+              <div class="hud-title">Mission: Draw the judgment boundary</div>
+              <div class="hud-sub muted">Adjust the signals</div>
+            </div>
+
+            <div class="hud-right">
+              <div class="meter">
+                <div class="meter-k">Automation safety</div>
+                <div class="meter-bar">
+                  <div class="meter-fill" id="mSafety"></div>
+                </div>
+                <div class="meter-v" id="vSafety">0%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="sim">
+            <!-- LEFT -->
+            <div class="sim-left">
+              <h2>Signals</h2>
+              <p class="small muted">
+                Set these honestly. Optimism is the usual failure mode.
+              </p>
+
+              <div class="sim-choices">
+                <label class="sim-choice">
+                  <span class="sim-choice-title">Decision stakes</span>
+                  <input type="range" min="0" max="10" value="6" id="stake" />
+                </label>
+
+                <label class="sim-choice">
+                  <span class="sim-choice-title">Ambiguity</span>
+                  <input type="range" min="0" max="10" value="6" id="ambiguity" />
+                </label>
+
+                <label class="sim-choice">
+                  <span class="sim-choice-title">Regulatory exposure</span>
+                  <input type="range" min="0" max="10" value="7" id="regulatory" />
+                </label>
+
+                <label class="sim-choice">
+                  <span class="sim-choice-title">Reversibility</span>
+                  <input type="range" min="0" max="10" value="4" id="reversibility" />
+                </label>
+
+                <label class="sim-choice">
+                  <span class="sim-choice-title">Exception rate</span>
+                  <input type="range" min="0" max="10" value="6" id="exceptions" />
+                </label>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="cta">
+                <button class="btn" id="resetBtn">Reset</button>
+              </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="sim-right">
+              <h2>Boundary call</h2>
+              <p class="small" id="callHeadline"></p>
+
+              <div class="divider"></div>
+
+              <ul class="list" id="callDetails"></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="card span-12">
+          <h2>Use this in a real decision</h2>
+          <p class="small muted">
+            I use this exact framing in strategy and delivery work to stop automation
+            from drifting into ambiguity.
+          </p>
+
+          <div class="cta">
+            <a
+              class="btn primary"
+              href="mailto:ssrujansudam@gmail.com?subject=Judgment%20boundary&body=Hi%20Srujan,%0A%0AI%20want%20to%20work%20through%20a%20judgment%20boundary%20for%20a%20decision.%0A%0ADecision:%0AContext:%0AConstraints:%0A%0AThanks,"
+              >Email me</a
+            >
+            <a class="btn" href="/lab/">Back to Lab</a>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Srujan Sudam</div>
+        <div class="muted">Built on GitHub Pages. No tracking.</div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      const sliders = {
+        stake: document.getElementById("stake"),
+        ambiguity: document.getElementById("ambiguity"),
+        regulatory: document.getElementById("regulatory"),
+        reversibility: document.getElementById("reversibility"),
+        exceptions: document.getElementById("exceptions")
+      };
+
+      const mSafety = document.getElementById("mSafety");
+      const vSafety = document.getElementById("vSafety");
+      const callHeadline = document.getElementById("callHeadline");
+      const callDetails = document.getElementById("callDetails");
+      const resetBtn = document.getElementById("resetBtn");
+
+      function score() {
+        const s =
+          sliders.stake.value * 1.2 +
+          sliders.ambiguity.value * 1.1 +
+          sliders.regulatory.value * 1.2 +
+          (10 - sliders.reversibility.value) * 1.0 +
+          sliders.exceptions.value * 1.1;
+
+        return Math.max(0, Math.min(100, Math.round(100 - s * 1.3)));
+      }
+
+      function update() {
+        const pct = score();
+        mSafety.style.width = pct + "%";
+        vSafety.textContent = pct + "%";
+
+        callDetails.innerHTML = "";
+
+        if (pct >= 70) {
+          callHeadline.textContent =
+            "Safe to automate with light human oversight.";
+          add(
+            "Automate repeatable flows, routing, and low-risk approvals."
+          );
+          add(
+            "Keep humans accountable for overrides and policy changes."
+          );
+        } else if (pct >= 45) {
+          callHeadline.textContent =
+            "Hybrid boundary. AI supports. Humans decide.";
+          add(
+            "Use AI for triage, summarisation, and recommendations."
+          );
+          add(
+            "Keep final judgment and exception handling explicitly owned."
+          );
+        } else {
+          callHeadline.textContent =
+            "Human-owned decision. Automation should stop here.";
+          add(
+            "Use AI only as an assistant, not a decision-maker."
+          );
+          add(
+            "Name a single accountable owner before adding tooling."
+          );
+        }
+      }
+
+      function add(text) {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="v">${text}</span>`;
+        callDetails.appendChild(li);
+      }
+
+      Object.values(sliders).forEach((s) =>
+        s.addEventListener("input", update)
+      );
+
+      resetBtn.addEventListener("click", () => {
+        sliders.stake.value = 6;
+        sliders.ambiguity.value = 6;
+        sliders.regulatory.value = 7;
+        sliders.reversibility.value = 4;
+        sliders.exceptions.value = 6;
+        update();
+      });
+
+      update();
+    </script>
+  </body>
+</html>
