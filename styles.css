@@ -827,6 +827,9 @@ html{
   text-decoration: none;
 }
 
+.brand:hover .name{
+  opacity: 0.92;
+}
 
 
 
