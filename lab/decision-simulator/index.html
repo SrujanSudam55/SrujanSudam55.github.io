@@ -94,6 +94,28 @@
           <div class="hud-progress">
             <div class="hud-progress-fill" id="hudProgress"></div>
           </div>
+          
+          <div class="sim-map" aria-label="Progress map">
+            <div class="sim-node" id="node1">
+              <div class="sim-node-dot"></div>
+              <div class="sim-node-label">Step 1</div>
+            </div>
+          
+            <div class="sim-node-line" aria-hidden="true"></div>
+          
+            <div class="sim-node" id="node2">
+              <div class="sim-node-dot"></div>
+              <div class="sim-node-label">Step 2</div>
+            </div>
+          
+            <div class="sim-node-line" aria-hidden="true"></div>
+          
+            <div class="sim-node" id="node3">
+              <div class="sim-node-dot"></div>
+              <div class="sim-node-label">Debrief</div>
+            </div>
+          </div>
+
 
           <div class="sim">
             <div class="sim-left">
@@ -135,6 +157,24 @@
         <section class="card span-12" id="resultCard" style="display:none;">
           <h2>Result</h2>
           <p class="small" id="resultSummary"></p>
+
+          <div class="archetype">
+            <div class="archetype-badge" id="archBadge">Archetype</div>
+            <div class="archetype-title" id="archTitle"></div>
+            <div class="archetype-sub muted" id="archSub"></div>
+          
+            <div class="archetype-grid">
+              <div class="archetype-box">
+                <div class="archetype-k">Strength</div>
+                <div class="archetype-v" id="archStrength"></div>
+              </div>
+              <div class="archetype-box">
+                <div class="archetype-k">Risk</div>
+                <div class="archetype-v" id="archRisk"></div>
+              </div>
+            </div>
+          </div>
+
 
           <div class="divider"></div>
 
@@ -321,7 +361,47 @@
       const vSpeed = document.getElementById("vSpeed");
       const vDurability = document.getElementById("vDurability");
 
+      // Map nodes
+      const node1 = document.getElementById("node1");
+      const node2 = document.getElementById("node2");
+      const node3 = document.getElementById("node3");
+      
+      // Archetype UI
+      const archBadge = document.getElementById("archBadge");
+      const archTitle = document.getElementById("archTitle");
+      const archSub = document.getElementById("archSub");
+      const archStrength = document.getElementById("archStrength");
+      const archRisk = document.getElementById("archRisk");
 
+      function updateMap(mode) {
+        // mode: "step" or "debrief"
+        const s = state.step;
+      
+        [node1, node2, node3].forEach((n) => {
+          n.classList.remove("active");
+          n.classList.remove("done");
+        });
+      
+        if (mode === "debrief") {
+          node1.classList.add("done");
+          node2.classList.add("done");
+          node3.classList.add("active");
+          return;
+        }
+      
+        // step mode
+        if (s === 0) {
+          node1.classList.add("active");
+        } else if (s === 1) {
+          node1.classList.add("done");
+          node2.classList.add("active");
+        } else {
+          node1.classList.add("done");
+          node2.classList.add("done");
+          node3.classList.add("active");
+        }
+      }
+  
       function renderList(el, items) {
         el.innerHTML = "";
         items.forEach((t) => {
@@ -400,6 +480,7 @@
 
         resultCard.style.display = "none";
         updateHUDFromTotals();
+        updateMap("step");
       }
 
       function selectChoice(choiceId) {
@@ -420,8 +501,77 @@
         previewHUDWithChoice(c);
       }
 
+      function computeArchetype(t) {
+        const c = t.clarity;
+        const s = t.speed;
+        const d = t.durability;
+      
+        // Clear, durable, decision-first
+        if (c >= 3 && d >= 3) {
+          return {
+            badge: "Decision-first",
+            title: "The Governor",
+            sub: "You protect decision rights and boundaries. This is how wins survive scale.",
+            strength: "You make ownership explicit early, then design support that holds under pressure.",
+            risk: "If you over-structure too soon, teams may feel constrained. Keep governance light and surgical."
+          };
+        }
+      
+        // Fast mover
+        if (s >= 3 && c <= 1) {
+          return {
+            badge: "Speed-led",
+            title: "The Operator",
+            sub: "You move fast and cut friction. Great for momentum, risky if the decision stays fuzzy.",
+            strength: "You create early movement and visible progress when the room is stuck.",
+            risk: "If ownership stays unclear, the system becomes a faster version of the same chaos."
+          };
+        }
+      
+        // Clarity-led, not fully durable yet
+        if (c >= 3) {
+          return {
+            badge: "Clarity-led",
+            title: "The Framer",
+            sub: "You make trade-offs visible and force the real decision into the open.",
+            strength: "You reduce confusion by naming the decision, the owner, and the challenge line.",
+            risk: "If you stop at clarity, delivery drifts. Convert clarity into operating cadence."
+          };
+        }
+      
+        // Durable but not necessarily clarity-first
+        if (d >= 3) {
+          return {
+            badge: "Durability-led",
+            title: "The Builder",
+            sub: "You optimise for what survives after the pilot, not what looks good in week two.",
+            strength: "You treat adoption, incentives, and edge cases as first-order design inputs.",
+            risk: "If you do not name the decision early, you can build strong plumbing for a weak purpose."
+          };
+        }
+      
+        // Default
+        return {
+          badge: "Balanced",
+          title: "The Optimiser",
+          sub: "You are balancing speed, clarity, and durability. The next level is sharper sequencing.",
+          strength: "You avoid extremes and keep multiple constraints in view.",
+          risk: "Without a clear bias, teams may drift into activity. Pick the decision and protect it."
+        };
+      }
+
+
       function finish() {
         const t = state.totals;
+
+        updateMap("debrief");
+
+        const a = computeArchetype(state.totals);
+        archBadge.textContent = a.badge;
+        archTitle.textContent = a.title;
+        archSub.textContent = a.sub;
+        archStrength.textContent = a.strength;
+        archRisk.textContent = a.risk;
 
         let headline = "You prioritised speed.";
         let guidance = "Speed can be useful, but only if ownership and decision boundaries are made explicit early.";
@@ -479,6 +629,7 @@
         state.selected = null;
         state.totals = { clarity: 0, speed: 0, durability: 0 };
         updateHUDFromTotals();
+        updateMap("step");
         renderStep();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
