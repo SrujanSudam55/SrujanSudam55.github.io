@@ -564,6 +564,8 @@
         const t = state.totals;
 
         updateMap("debrief");
+        hudStep.textContent = `Debrief`;
+        hudProgress.style.width = `100%`;
 
         const a = computeArchetype(state.totals);
         archBadge.textContent = a.badge;
