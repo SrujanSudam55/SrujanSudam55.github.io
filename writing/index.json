@@ -7,18 +7,18 @@
     "excerpt": "Speed is easy to measure. Judgment is harder, and that is where outcomes live."
   },
   {
-    "id": "why-i-build-tools",
-    "title": "Why I Build Tools",
-    "date": "2026-01-20",
-    "status": "published",
-    "excerpt": "Tools are not the work. They are how thinking stops being theoretical."
-  },
-  {
     "id": "ownership-after-the-win",
     "title": "Ownership After the Win",
     "date": "2026-01-23",
     "status": "published",
     "excerpt": "A win without ownership is temporary. Someone has to keep the lighthouse on."
+  },
+  {
+    "id": "why-i-build-tools",
+    "title": "Why I Build Tools",
+    "date": "2026-01-20",
+    "status": "published",
+    "excerpt": "Tools are not the work. They are how thinking stops being theoretical."
   },
   {
     "id": "choice-paralysis",
