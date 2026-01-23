@@ -432,23 +432,23 @@
 
       async function loadFramework(file, fallbackHtml) {
         if (!file) {
-          mount.innerHTML = fallbackHtml || `
-            <div class="essay">
-              <p class="muted small">Coming soon.</p>
-              <div class="divider"></div>
-              <h2>More frameworks are on the way</h2>
-              <p>
-                I am building a small set of decision frameworks that codify how strategy holds up after the pilot.
-                Governance, value realisation, and judgment boundaries are next.
-              </p>
-              <div class="cta">
-                <a class="btn primary" href="/lab/">Try the Lab</a>
-                <a class="btn" href="mailto:ssrujansudam@gmail.com?subject=Framework%20request&body=Hi%20Srujan,%0A%0AI%27d%20like%20a%20framework%20for:%0A-%20Decision:%0A-%20Industry:%0A-%20Constraint:%0A%0AThanks,">Request a framework</a>
-              </div>
-            </div>
-          `;
+          mount.innerHTML = fallbackHtml || "";
           return;
         }
+      
+        const res = await fetch(file, { cache: "no-store" });
+        const html = await res.text();
+      
+        mount.innerHTML = html;
+      
+        // Re-run scripts inside loaded HTML (important for interactive frameworks)
+        mount.querySelectorAll("script").forEach((oldScript) => {
+          const s = document.createElement("script");
+          if (oldScript.src) s.src = oldScript.src;
+          s.textContent = oldScript.textContent;
+          oldScript.replaceWith(s);
+        });
+      }
 
         const res = await fetch(file, { cache: "no-store" });
         const html = await res.text();
