@@ -435,12 +435,12 @@
           mount.innerHTML = fallbackHtml || "";
           return;
         }
-      
+
         const res = await fetch(file, { cache: "no-store" });
         const html = await res.text();
-      
+
         mount.innerHTML = html;
-      
+
         // Re-run scripts inside loaded HTML (important for interactive frameworks)
         mount.querySelectorAll("script").forEach((oldScript) => {
           const s = document.createElement("script");
@@ -448,11 +448,6 @@
           s.textContent = oldScript.textContent;
           oldScript.replaceWith(s);
         });
-      }
-
-        const res = await fetch(file, { cache: "no-store" });
-        const html = await res.text();
-        mount.innerHTML = html;
       }
 
       function setActive(anchor) {
@@ -484,8 +479,9 @@
         const q = search.value.trim().toLowerCase();
         const items = list.querySelectorAll(".fx-item");
         items.forEach((i) => {
-          const t = (i.getAttribute("data-title") || "").toLowerCase();
-          const show = !q || t.includes(q);
+          const title = (i.getAttribute("data-title") || "").toLowerCase();
+          const text = (i.textContent || "").toLowerCase();
+          const show = !q || title.includes(q) || text.includes(q);
           i.style.display = show ? "block" : "none";
         });
       });
