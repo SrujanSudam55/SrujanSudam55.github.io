@@ -8,11 +8,10 @@
 
     <meta
       name="description"
-      content="Frameworks by Srujan Sudam. Practical decision frameworks for Data & AI strategy and value realisation. Coming soon."
+      content="Frameworks by Srujan Sudam. Simple structures to guide high-stakes decisions, investment choices, and AI-enabled transformation."
     />
     <meta name="author" content="Srujan Sudam" />
     <meta name="robots" content="index,follow" />
-
     <link rel="canonical" href="https://srujansudam55.github.io/frameworks/" />
 
     <!-- Fonts -->
@@ -25,6 +24,151 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/styles.css" />
+
+    <!-- Page-scoped styles (safe, does not touch other pages) -->
+    <style>
+      .fx-shell{
+        display:grid;
+        grid-template-columns: 320px 1fr;
+        gap: 14px;
+        align-items:start;
+      }
+      @media (max-width: 920px){
+        .fx-shell{ grid-template-columns: 1fr; }
+      }
+
+      .fx-nav{
+        position: sticky;
+        top: 90px;
+        align-self:start;
+      }
+      @media (max-width: 920px){
+        .fx-nav{ position: relative; top:auto; }
+      }
+
+      .fx-search{
+        width:100%;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(0,0,0,0.18);
+        color: var(--text);
+        outline: none;
+      }
+      .fx-search::placeholder{ color: rgba(234,240,255,0.55); }
+
+      .fx-list{
+        margin-top: 12px;
+        display:grid;
+        gap:10px;
+      }
+      .fx-item{
+        display:block;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.18);
+        transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+      }
+      .fx-item:hover{
+        transform: translateY(-1px);
+        border-color: rgba(255,255,255,0.22);
+        background: rgba(255,255,255,0.06);
+        text-decoration:none;
+      }
+      .fx-item.active{
+        border-color: rgba(124,58,237,0.45);
+        background: linear-gradient(90deg, rgba(124,58,237,0.18), rgba(6,182,212,0.10));
+      }
+      .fx-item .k{ margin:0 0 4px; }
+      .fx-item .v{ margin:0; }
+
+      .fx-main{
+        min-height: 520px;
+      }
+
+      /* Framework visual: 4-step strip */
+      .fx-strip{
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+      @media (max-width: 920px){
+        .fx-strip{ grid-template-columns: 1fr; }
+      }
+
+      .fx-box{
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.18);
+        padding: 12px;
+        position:relative;
+      }
+      .fx-num{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.16);
+        background: rgba(255,255,255,0.06);
+        font-size: 12px;
+        color: rgba(234,240,255,0.82);
+        margin-bottom: 8px;
+      }
+      .fx-box .k{
+        font-weight: 700;
+        font-size: 13px;
+        margin: 0 0 4px;
+      }
+      .fx-box .v{
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .fx-grid2{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+      @media (max-width: 920px){
+        .fx-grid2{ grid-template-columns: 1fr; }
+      }
+
+      .fx-mini{
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.18);
+        padding: 14px;
+      }
+
+      .fx-mini h3{
+        margin: 0 0 8px;
+        font-size: 13px;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: rgba(234,240,255,0.82);
+      }
+
+      .fx-tagrow{
+        display:flex;
+        gap: 8px;
+        flex-wrap:wrap;
+        margin-top: 10px;
+      }
+      .fx-tag{
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(0,0,0,0.16);
+        color: rgba(234,240,255,0.76);
+      }
+    </style>
   </head>
 
   <body>
@@ -40,6 +184,8 @@
             <a href="/">Home</a>
             <a href="/work/">Work</a>
             <a href="/writing/">Writing</a>
+            <a href="/frameworks/">Frameworks</a>
+            <a href="/lab/">Lab</a>
             <a href="/#contact">Contact</a>
           </nav>
         </div>
@@ -48,59 +194,56 @@
       <section class="hero">
         <div class="hero-top">
           <div class="pill">Frameworks</div>
-          <div class="pill">Practical, decision-first</div>
+          <div class="pill">Decision-first. Reusable.</div>
         </div>
 
-        <h1>Frameworks</h1>
+        <h1>Frameworks that make choices stricter</h1>
 
         <p>
-          I am building a small set of practical frameworks that force clarity when trade-offs are uncomfortable.
-          Not templates. Not theory. Tools for decision-making.
+          These are simple structures I use to guide investment decisions and AI-enabled change,
+          especially when the organisation is tempted to buy tools before it owns the decision.
         </p>
 
         <div class="cta">
-          <a class="btn primary" href="/writing/">Read the thinking</a>
-          <a class="btn" href="/work/">View my work</a>
+          <a class="btn primary" href="mailto:ssrujansudam@gmail.com?subject=Decision%20framework%20workshop&body=Hi%20Srujan,%0A%0AI%27d%20like%20to%20run%20a%20decision%20framework%20workshop.%0A%0ADecision:%0AIndustry:%0AStakeholders:%0ATimeline:%0A%0AThanks,">Run this as a workshop</a>
+          <a class="btn" href="/lab/">Explore the Lab</a>
         </div>
       </section>
 
       <div class="grid">
         <section class="card span-12">
-          <h2>Coming soon</h2>
+          <div class="fx-shell">
+            <!-- LEFT: NAV -->
+            <div class="fx-nav">
+              <h2>Framework list</h2>
+              <input class="fx-search" id="fxSearch" type="text" placeholder="Search frameworks..." />
 
-          <p class="small muted">
-            I am publishing these slowly. Each framework will come with:
-          </p>
+              <div class="fx-list" id="fxList">
+                <a class="fx-item active" href="#decision-centric-investment" data-key="decision-centric-investment" data-title="Decision-Centric Investment Framework" data-file="/frameworks/decision-centric-investment.html">
+                  <div class="k">Decision-Centric Investment</div>
+                  <div class="v">A strict sequence for high-stakes investments.</div>
+                </a>
 
-          <ul class="list">
-            <li>
-              <span class="k">A one-page worksheet</span>
-              <span class="v">So you can use it in stakeholder conversations immediately.</span>
-            </li>
-            <li>
-              <span class="k">A short explanation</span>
-              <span class="v">Why it exists, what it prevents, and how it fails.</span>
-            </li>
-            <li>
-              <span class="k">Real examples</span>
-              <span class="v">What “good” looks like, including the messy edge cases.</span>
-            </li>
-          </ul>
+                <a class="fx-item" href="#coming-soon" data-key="coming-soon" data-title="More coming soon" data-file="">
+                  <div class="k">More coming soon</div>
+                  <div class="v">Governance, value realisation, and judgment boundaries.</div>
+                </a>
+              </div>
 
-          <div class="divider"></div>
+              <div class="divider"></div>
 
-          <p class="small">
-            If you want the first drop when it is ready, email me.
-          </p>
+              <p class="small muted">
+                Frameworks are reusable structures. Lab is interactive pressure-testing.
+                They are related, not the same.
+              </p>
+            </div>
 
-          <div class="cta">
-            <a
-              class="btn primary"
-              href="mailto:ssrujansudam@gmail.com?subject=Frameworks%20update&body=Hi%20Srujan,%0A%0ACan%20you%20notify%20me%20when%20your%20frameworks%20page%20is%20live%3F%0A%0AContext%20(optional)%3A%0A-%20Industry%3A%0A-%20Decision%20type%3A%0A%0AThanks,"
-            >
-              Email me
-            </a>
-            <a class="btn" href="/#contact">Contact</a>
+            <!-- RIGHT: CONTENT -->
+            <div class="fx-main">
+              <div id="fxMount">
+                <!-- Loaded framework HTML will render here -->
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -113,6 +256,88 @@
 
     <script>
       document.getElementById("y").textContent = new Date().getFullYear();
+
+      const mount = document.getElementById("fxMount");
+      const list = document.getElementById("fxList");
+      const search = document.getElementById("fxSearch");
+
+      async function loadFramework(file, fallbackHtml) {
+        if (!file) {
+          mount.innerHTML = fallbackHtml || `
+            <div class="essay">
+              <p class="muted small">Coming soon.</p>
+              <div class="divider"></div>
+              <h2>More frameworks are on the way</h2>
+              <p>
+                I am building a small set of decision frameworks that codify how strategy holds up after the pilot.
+                Governance, value realisation, and judgment boundaries are next.
+              </p>
+              <div class="cta">
+                <a class="btn primary" href="/lab/">Try the Lab</a>
+                <a class="btn" href="mailto:ssrujansudam@gmail.com?subject=Framework%20request&body=Hi%20Srujan,%0A%0AI%27d%20like%20a%20framework%20for:%0A-%20Decision:%0A-%20Industry:%0A-%20Constraint:%0A%0AThanks,">Request a framework</a>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        const res = await fetch(file, { cache: "no-store" });
+        const html = await res.text();
+        mount.innerHTML = html;
+      }
+
+      function setActive(anchor) {
+        const items = list.querySelectorAll(".fx-item");
+        items.forEach((i) => i.classList.remove("active"));
+        anchor.classList.add("active");
+      }
+
+      function handleClick(e) {
+        const a = e.target.closest(".fx-item");
+        if (!a) return;
+
+        e.preventDefault();
+        setActive(a);
+
+        const file = a.getAttribute("data-file");
+        const title = a.getAttribute("data-title") || "Framework";
+        document.title = `${title} | Frameworks | Srujan Sudam`;
+
+        const key = a.getAttribute("data-key") || "";
+        if (key) window.location.hash = key;
+
+        loadFramework(file);
+      }
+
+      list.addEventListener("click", handleClick);
+
+      search.addEventListener("input", () => {
+        const q = search.value.trim().toLowerCase();
+        const items = list.querySelectorAll(".fx-item");
+        items.forEach((i) => {
+          const t = (i.getAttribute("data-title") || "").toLowerCase();
+          const show = !q || t.includes(q);
+          i.style.display = show ? "block" : "none";
+        });
+      });
+
+      // Initial load based on hash, else first item.
+      (function init() {
+        const hash = (window.location.hash || "").replace("#", "");
+        const items = Array.from(list.querySelectorAll(".fx-item"));
+        let pick = items[0];
+
+        if (hash) {
+          const found = items.find((i) => (i.getAttribute("data-key") || "") === hash);
+          if (found) pick = found;
+        }
+
+        setActive(pick);
+        const file = pick.getAttribute("data-file");
+        const title = pick.getAttribute("data-title") || "Frameworks";
+        document.title = `${title} | Frameworks | Srujan Sudam`;
+        loadFramework(file);
+      })();
     </script>
   </body>
 </html>
